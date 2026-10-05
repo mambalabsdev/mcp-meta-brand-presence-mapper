@@ -1,0 +1,84 @@
+{
+  "title": "Instagram Threads Facebook Brand Presence Mapper Input",
+  "description": "Give a company domain and get Instagram, Threads and Facebook URLs plus follower and post counts. Threads is derived from the Instagram handle at no extra discovery cost. Facebook is best effort: Meta blocks anonymous clients hard and the row says so rather than returning a zero. Free Apify plan users get 600 results per calendar month, reset monthly. Upgrade to any paid Apify plan for unlimited use: https://apify.com/pricing?fpr=mamba",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "company_domain": {
+      "title": "Company Domain",
+      "type": "string",
+      "description": "Bare company domain, for example shopify.com. Supply this or a handle. With a domain the actor runs full discovery; with a handle it skips straight to the fetch.",
+      "editor": "textfield",
+      "prefill": "shopify.com"
+    },
+    "company_name": {
+      "title": "Company Name",
+      "type": "string",
+      "description": "Optional. Improves search accuracy and is what the identity gate checks a discovered profile against, so supplying it reduces wrong matches.",
+      "editor": "textfield",
+      "prefill": "Shopify"
+    },
+    "handle": {
+      "title": "Instagram Handle",
+      "type": "string",
+      "description": "Optional. The Instagram handle with or without the leading @. Supplying it skips Instagram discovery AND gives Threads its handle for free, because Threads handles are Instagram handles (5 of 5 measured).",
+      "editor": "textfield",
+      "prefill": ""
+    },
+    "platforms": {
+      "title": "Platforms",
+      "type": "array",
+      "description": "Which of the three Meta surfaces to map. Default is all three. Dropping Facebook is the common choice: it is the least reliable of the three and it costs a fetch to find that out.",
+      "editor": "select",
+      "items": {
+        "type": "string",
+        "enum": [
+          "instagram",
+          "threads",
+          "facebook"
+        ]
+      },
+      "default": [
+        "instagram",
+        "threads",
+        "facebook"
+      ]
+    },
+    "includeFollowerCounts": {
+      "title": "Include Follower Counts",
+      "type": "string",
+      "description": "When \"true\" (default) the profile page is fetched and the counts are extracted. Set \"false\" to resolve the profile URL only, which is cheaper and needs no proxy. Sent as a string for Clay compatibility.",
+      "editor": "select",
+      "enum": [
+        "true",
+        "false"
+      ],
+      "enumTitles": [
+        "true (URL plus follower counts)",
+        "false (URL only, cheaper)"
+      ],
+      "default": "true"
+    },
+    "skipCache": {
+      "title": "Skip Cache",
+      "type": "string",
+      "description": "When \"false\" (default) a successful lookup is cached for seven days and reused. Set \"true\" to force a fresh fetch. Sent as a string for Clay compatibility.",
+      "editor": "select",
+      "enum": [
+        "false",
+        "true"
+      ],
+      "enumTitles": [
+        "false (use cache)",
+        "true (force fresh)"
+      ],
+      "default": "false"
+    },
+    "source_tag": {
+      "title": "Source Tag",
+      "type": "string",
+      "description": "Internal attribution tag set by Mamba Labs on published task examples. Not required, and nothing depends on it. Leave it empty.",
+      "editor": "textfield"
+    }
+  }
+}
