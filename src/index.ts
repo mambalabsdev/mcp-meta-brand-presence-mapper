@@ -6,6 +6,16 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 
+// Optional per call spending cap, passed through to the actor's own max_charge_usd
+// input. The actor enforces it; this wrapper only forwards it when set.
+const MAX_CHARGE_USD = z
+  .number()
+  .min(0)
+  .optional()
+  .describe(
+    "Optional spending cap for this call, in USD, passed to the actor as max_charge_usd. The run stops before any charge that would take it past this amount and keeps every row already charged. Leave empty to rely only on the maximum charge per run set on your Apify account.",
+  );
+
 const here = dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(
   readFileSync(join(here, "..", "package.json"), "utf8"),
@@ -59,7 +69,9 @@ async function runActor(
   actorPath: string,
   actorLabel: string,
   input: Record<string, unknown>,
+  maxChargeUsd?: number,
 ): Promise<ToolResult> {
+  if (maxChargeUsd !== undefined) input = { ...input, max_charge_usd: maxChargeUsd };
   if (!APIFY_TOKEN) {
     return { isError: true, content: [{ type: "text", text: "APIFY_TOKEN is not set. Create a token at https://console.apify.com/account/integrations and set it as the APIFY_TOKEN environment variable." }] };
   }
@@ -206,7 +218,7 @@ server.registerTool(
       "Resolve a company domain to its Instagram, Threads and Facebook accounts with follower and post counts, as one flat Clay ready row. The Threads handle is derived from the resolved Instagram handle at no extra discovery cost. Instagram and Threads counts are rounded by Meta and the row carries both the rounded integer and the platform's own display string. Facebook is best effort: Meta serves a login wall to anonymous clients, so blocked is a normal answer there and never a zero. Read only; requires an APIFY_TOKEN and consumes Apify credits per call.",
     annotations: {
       title: "Map Instagram Threads and Facebook Presence",
-      readOnlyHint: true,
+      readOnlyHint: false,
       destructiveHint: false,
       idempotentHint: true,
       openWorldHint: true,
@@ -230,9 +242,10 @@ server.registerTool(
       skipCache: z.boolean()
         .optional()
         .describe("Default false: a successful lookup is cached for seven days and reused. Set true to force a fresh fetch."),
+      max_charge_usd: MAX_CHARGE_USD,
     },
   },
-  async ({ company_domain, company_name, handle, platforms, includeFollowerCounts, skipCache }) => {
+  async ({ company_domain, company_name, handle, platforms, includeFollowerCounts, skipCache, max_charge_usd }) => {
     return runActor(
       "HXh65I0JBjPsunbY8",
       "Instagram Threads Facebook Brand Presence Mapper",
@@ -244,7 +257,7 @@ server.registerTool(
         includeFollowerCounts: boolToString(includeFollowerCounts),
         skipCache: boolToString(skipCache),
       }),
-    );
+     max_charge_usd,);
   },
 );
 
