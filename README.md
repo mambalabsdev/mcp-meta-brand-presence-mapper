@@ -1,8 +1,8 @@
-# Instagram Threads Facebook Brand Presence Mapper MCP Server
+# Instagram Facebook Brand Presence Mapper MCP Server
 
 [![Smithery](https://smithery.ai/badge/mambabuilt/mcp-meta-brand-presence-mapper)](https://smithery.ai/servers/mambabuilt/mcp-meta-brand-presence-mapper) [![Glama score](https://glama.ai/mcp/servers/mambalabsdev/mcp-meta-brand-presence-mapper/badges/score.svg)](https://glama.ai/mcp/servers/mambalabsdev/mcp-meta-brand-presence-mapper) [![npm version](https://img.shields.io/npm/v/@mambalabsdev/mcp-meta-brand-presence-mapper)](https://www.npmjs.com/package/@mambalabsdev/mcp-meta-brand-presence-mapper) [![npm downloads](https://img.shields.io/npm/dm/@mambalabsdev/mcp-meta-brand-presence-mapper)](https://www.npmjs.com/package/@mambalabsdev/mcp-meta-brand-presence-mapper) [![license](https://img.shields.io/github/license/mambalabsdev/mcp-meta-brand-presence-mapper)](https://github.com/mambalabsdev/mcp-meta-brand-presence-mapper/blob/main/LICENSE)
 
-MCP server for the Mamba Labs **Instagram Threads Facebook Brand Presence Mapper** actor on Apify.
+MCP server for the Mamba Labs **Instagram Facebook Brand Presence Mapper** actor on Apify.
 
 Resolve a company domain to its Instagram, Threads and Facebook accounts with follower and post counts.
 

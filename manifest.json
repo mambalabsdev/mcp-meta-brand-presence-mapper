@@ -1,8 +1,9 @@
 {
   "manifest_version": "0.3",
   "name": "mcp-meta-brand-presence-mapper",
-  "version": "1.2.0",
-  "description": "MCP server that resolve a company domain to its Instagram, Threads and Facebook accounts with follower and post counts.",
+  "display_name": "Instagram Facebook Brand Presence Mapper",
+  "version": "1.2.1",
+  "description": "MCP server for the Mamba Labs Instagram Facebook Brand Presence Mapper actor on Apify. Resolve a company domain to its Instagram, Threads and Facebook accounts with follower and post counts.",
   "author": {
     "name": "Mamba Labs"
   },
