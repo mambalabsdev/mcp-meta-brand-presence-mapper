@@ -52,6 +52,7 @@ Tool: `map_meta_brand_presence`
 | `platforms` | array | Which of the three Meta surfaces to map. Default is all three. Dropping Facebook is the common choice: it is the least reliable of the three and it costs a fetch to find that out. |
 | `includeFollowerCounts` | boolean | Default true: the profile page is fetched and the follower counts are extracted. Set false to resolve the profile URL only, which is cheaper and needs no proxy. |
 | `skipCache` | boolean | Default false: a successful lookup is cached for seven days and reused. Set true to force a fresh fetch. |
+| `max_charge_usd` | number | Optional spending cap for this call, in USD. The actor stops before any charge that would take the run past this amount and keeps every row already charged. |
 
 ## Reading the output
 
@@ -70,6 +71,19 @@ first. The vocabulary is the same across the whole Mamba Labs social family:
 **`false` and `null` are never interchangeable.** `false` means we looked and the
 answer is no. `null` means we could not look. If you filter for companies with no
 presence, filter on `false`, because `null` rows are unknown rather than absent.
+
+## Pricing
+
+You pay per event on Apify, billed to your own Apify account. Prices from the live pricing record, read 2026-10-16:
+
+| Event | Price per event (USD) | Fires when |
+| --- | --- | --- |
+| `apify-actor-start` | $0.00005 | Charged when the Actor starts running. Number of events charged depends on Actor memory (one event per GB, minimum one event). |
+| `company-checked` | $0.005 on the Free plan, down to $0.0035 on higher Apify plans | Once per company for which the discovery cascade completed and a non degraded row was produced, whether or not any Meta platform resolved. Does not fire on a degraded row, because on a degraded row the company site was never read and no presence was measured. |
+| `platform-resolved` | $0.003 on the Free plan, down to $0.0021 on higher Apify plans | Once per REQUESTED Meta platform whose candidate URL passed the identity gate. Fires on the validation work, not on a populated follower cell. A candidate dropped as an impersonator does not charge: the work was done and the answer is that there is no such profile. A platform the caller did not request never fires it. |
+| `follower-count-extracted` | $0.0025 on the Free plan, down to $0.00175 on higher Apify plans | Once per Meta platform where a numeric follower count was read off the public Open Graph card. Does not fire on not_extractable, blocked, identity_mismatch or a URL only run. Facebook therefore often does not fire it, which is correct: it is the platform we most often cannot read. |
+
+The [actor's Apify page](https://apify.com/mambalabs/meta-brand-presence-mapper) carries the current prices. Running this server consumes Apify credits.
 
 ## Full actor documentation
 
