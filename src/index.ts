@@ -209,7 +209,7 @@ const server = new McpServer({
   version: pkg.version,
 });
 
-// Instagram Threads Facebook Brand Presence Mapper (immutable actor ID HXh65I0JBjPsunbY8)
+// Instagram Facebook Brand Presence Mapper (immutable actor ID HXh65I0JBjPsunbY8)
 server.registerTool(
   "map_meta_brand_presence",
   {
@@ -248,7 +248,7 @@ server.registerTool(
   async ({ company_domain, company_name, handle, platforms, includeFollowerCounts, skipCache, max_charge_usd }) => {
     return runActor(
       "HXh65I0JBjPsunbY8",
-      "Instagram Threads Facebook Brand Presence Mapper",
+      "Instagram Facebook Brand Presence Mapper",
       compact({
         company_domain,
         company_name,

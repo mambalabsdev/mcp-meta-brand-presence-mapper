@@ -1,5 +1,5 @@
 {
-  "title": "Instagram Threads Facebook Brand Presence Mapper Input",
+  "title": "Instagram Facebook Brand Presence Mapper Input",
   "description": "Give a company domain and get Instagram, Threads and Facebook URLs plus follower and post counts. Threads is derived from the Instagram handle at no extra discovery cost. Facebook is best effort: Meta blocks anonymous clients hard and the row says so rather than returning a zero. Free Apify plan users get 600 results per calendar month, reset monthly. Upgrade to any paid Apify plan for unlimited use: https://apify.com/pricing?fpr=mamba",
   "type": "object",
   "schemaVersion": 1,
@@ -10,6 +10,13 @@
       "description": "Bare company domain, for example shopify.com. Supply this or a handle. With a domain the actor runs full discovery; with a handle it skips straight to the fetch.",
       "editor": "textfield",
       "prefill": "shopify.com"
+    },
+    "company_domains": {
+      "title": "Company Domains (batch)",
+      "type": "array",
+      "editor": "stringList",
+      "description": "Optional. A list of bare company domains, one per line, for example shopify.com. One row per domain. When this list is filled it is used instead of the single Company Domain field.",
+      "default": []
     },
     "company_name": {
       "title": "Company Name",
@@ -22,8 +29,7 @@
       "title": "Instagram Handle",
       "type": "string",
       "description": "Optional. The Instagram handle with or without the leading @. Supplying it skips Instagram discovery AND gives Threads its handle for free, because Threads handles are Instagram handles (5 of 5 measured).",
-      "editor": "textfield",
-      "prefill": ""
+      "editor": "textfield"
     },
     "platforms": {
       "title": "Platforms",
@@ -74,18 +80,18 @@
       ],
       "default": "false"
     },
-    "source_tag": {
-      "title": "Source Tag",
-      "type": "string",
-      "description": "Internal attribution tag set by Mamba Labs on published task examples. Not required, and nothing depends on it. Leave it empty.",
-      "editor": "textfield"
-    },
     "max_charge_usd": {
       "title": "Maximum charge for this run (USD)",
       "type": "number",
       "editor": "number",
       "description": "Optional. The run stops before starting an item that could take its charges past this amount, so no row is cut in half. Leave empty to rely only on the maximum cost per run you set in Apify. The run also stops cleanly when that Apify maximum is reached.",
       "minimum": 0
+    },
+    "source_tag": {
+      "title": "Source Tag",
+      "type": "string",
+      "description": "Internal attribution tag set by Mamba Labs on published task examples. Not required, and nothing depends on it. Leave it empty.",
+      "editor": "hidden"
     }
   }
 }
