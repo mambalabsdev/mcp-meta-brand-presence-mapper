@@ -3,7 +3,7 @@
   "name": "com.mambabuilt/mcp-meta-brand-presence-mapper",
   "title": "Instagram Facebook Brand Presence Mapper",
   "description": "Resolve a company domain to Instagram, Threads and Facebook accounts and counts.",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "repository": {
     "url": "https://github.com/mambalabsdev/mcp-meta-brand-presence-mapper",
     "source": "github"
@@ -12,7 +12,7 @@
     {
       "registryType": "npm",
       "identifier": "@mambalabsdev/mcp-meta-brand-presence-mapper",
-      "version": "1.2.1",
+      "version": "1.2.2",
       "transport": {
         "type": "stdio"
       },
